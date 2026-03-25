@@ -73,3 +73,6 @@ if __name__ == "__main__" :
 
     delete.grid(row=6, column=2, pady=5)
     Exit.grid(row=7, column=2)
+
+    gui.mainloop()
+    
