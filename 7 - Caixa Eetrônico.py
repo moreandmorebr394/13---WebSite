@@ -1,34 +1,46 @@
 import tkinter as tk
 from tkinter import messagebox
 
-class CaixaEletronico:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Caixa Eletrônico")
-        self.saldo = 1000.00 # Saldo inicial
+def realizar_saque():
+    try:
+        valor = int(entry_valor.get())
+        if valor <= 0:
+            messagebox.showwarning("Erro", "Insira um valor maior")
+            return
+        
+        notas = [100, 50, 20, 10, 5, 2]
+        resultado = []
 
-        self.label_saldo = tk.Label(root, text=f"Caixa Eletrônico", font=("Roboto", 16), bg="indianred")
-        self.label_saldo.pack(pady=20)
+        valor_restante = valor
+        for nota in notas:
+            qtd = valor_restante // nota
+            valor_restante %= nota
+            if qtd > 0:
+                resultado.append(f"{qtd} notas(s) de R$ {nota}")
 
-        self.entry_valor = tk.Entry(root)
-        self.entry_valor.pack()
+        if valor_restante > 0:
+            messagebox.showinfo("Dinheiro Sacado")
+        
+        else:
+            messagebox.showinfo("Saque", f"Saque realizado:\n" + "\n".join(resultado))
+            
+    except ValueError:
+        messagebox.showerror("Erro", "Por favor, insira apenas números inteiros.")
 
-        self.btn_sacar = tk.Button(root, text="Sacar", command=self.sacar)
-        self.btn_sacar.pack(pady=5)
+app = tk.Tk()
+app.title("Caixa Eletrônico")
+app.geometry("400x300")
 
-    def sacar(self):
-        try:
-            valor = float(self.entry_valor.get())
-            if 0 < valor <= self.saldo:
-                self.saldo -= valor
-                self.atualizar_saldo()
-                messagebox.showinfo("Sucesso", f"Saque de R$ {valor:.2f} realizado!")
-            else:
-                messagebox.showwarning("Erro", "Saldo insuficiente ou valor inválido")
-        except ValueError:
-            messagebox.showerror("Erro", "Insira um número válido")
+frame_pagina = tk.Frame(app, bg="lavenderblush")
+frame_pagina.place (relwidth= 10,relheight=10)
 
-root = tk.Tk()
-app = CaixaEletronico(root)
-root.geometry("600x200")
-root.mainloop()
+label_instrucao = tk.Label(app, text="Caixa Eletrônico", font=("Roboto", 16), bg="lavenderblush")
+label_instrucao.pack(pady=10)
+
+entry_valor = tk.Entry(app, font=("Roboto", 10), bg="lavender")
+entry_valor.pack(pady=5)
+
+btn_sacar = tk.Button(app, text="Sacar", command= realizar_saque, bg="hotpink", font=("Roboto", 12))
+btn_sacar.pack(pady=15)
+
+app.mainloop()
