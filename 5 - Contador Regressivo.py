@@ -3,7 +3,6 @@ import tkinter as tk
 from tkinter import *  # Import all components from tkinter
 from tkinter import messagebox
 
-# Create the main window (Master Window B)
 B = tk.Tk()
 B.title("Countdown Timer")
 
@@ -14,11 +13,14 @@ B.geometry("300x200")
 time_left = 0
 
 # Timer label
-timer_label = Label(B, text="00", font=("Roboto", 48), bg="lavenderblush")
+
+frame_pagina = tk.Frame(B, bg="medium orchid")
+frame_pagina.place (relwidth= 10,relheight=10)
+
+timer_label = Label(B, text="00", fg = "white", font=("Roboto", 48), bg="dark violet")
 timer_label.pack()
 
-# Time input entry
-time_input = Entry(B, font=("Roboto", 14), bg="mintcream")
+time_input = Entry(B, font=("Roboto", 14), bg="dark orchid")
 time_input.pack(pady=10)
 
 # Helper functions
@@ -47,10 +49,11 @@ def reset_timer():
     time_input.delete(0, END)
 
 # Buttons
-start_button = Button(B, text="Start", font=("Roboto", 14), bg = "lavenderblush", command=start_timer)
+start_button = Button(B, text="Inicio",fg = "white", font=("Roboto", 14), bg = "blue violet", command=start_timer)
 start_button.pack(side="left", padx=20)
 
-reset_button = Button(B, text="Reset", font=("Roboto", 14),bg = "lavenderblush", command=reset_timer)
+reset_button = Button(B, text="Recomeço",fg = "white", font=("Roboto", 14),bg = "blue violet", command=reset_timer)
 reset_button.pack(side="right", padx=20)
 
 B.mainloop()
+
